@@ -22,7 +22,22 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         // Do any additional setup after loading the view.
     }
 
+    // "사진 촬영" 버튼 클릭
     @IBAction func btnCaptureImageFromCamera(_ sender: UIButton) {
+        if(UIImagePickerController.isSourceTypeAvailable(.camera)) {
+            flagImageSave = true
+            
+            imagePicker.delegate = self;
+            imagePicker.sourceType = .camera
+            imagePicker.mediaTypes = [kUTTypeImage as String];
+            imagePicker.allowsEditing = false;
+            
+            present(imagePicker, animated: true, completion: nil)
+        }
+        else {
+            myAlert("Camera inaccessable", message: "Application cannot access the camera");
+        }
+        
     }
     
     @IBAction func btnLoadImageFromLibrary(_ sender: UIButton) {
