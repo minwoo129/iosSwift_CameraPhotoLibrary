@@ -58,6 +58,19 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     }
     
     @IBAction func btnRecordVideoFromCamera(_ sender: UIButton) {
+        if(UIImagePickerController.isSourceTypeAvailable(.camera)) {
+            flagImageSave = true
+            
+            imagePicker.delegate = self;
+            imagePicker.sourceType = .camera
+            imagePicker.mediaTypes = [kUTTypeMovie as String];
+            imagePicker.allowsEditing = false;
+            
+            present(imagePicker, animated: true, completion: nil)
+        }
+        else {
+            myAlert("Camera inaccessable", message: "Application cannot access the camera");
+        }
     }
     
     @IBAction func btnLoadVideoFromLibrary(_ sender: UIButton) {
