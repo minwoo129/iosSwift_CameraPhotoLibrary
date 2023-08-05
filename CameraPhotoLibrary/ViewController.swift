@@ -40,7 +40,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         
     }
     
-    // "사진 불러오기" 코드 불러오기
+    // "사진 불러오기" 버튼 클릭
     @IBAction func btnLoadImageFromLibrary(_ sender: UIButton) {
         if(UIImagePickerController.isSourceTypeAvailable(.photoLibrary)) {
             flagImageSave = false;
@@ -57,6 +57,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         }
     }
     
+    // "비디오 촬영" 버튼 클릭
     @IBAction func btnRecordVideoFromCamera(_ sender: UIButton) {
         if(UIImagePickerController.isSourceTypeAvailable(.camera)) {
             flagImageSave = true
@@ -73,7 +74,21 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         }
     }
     
+    // "비디오 불러오기" 버튼 클릭
     @IBAction func btnLoadVideoFromLibrary(_ sender: UIButton) {
+        if(UIImagePickerController.isSourceTypeAvailable(.photoLibrary)) {
+            flagImageSave = false;
+            
+            imagePicker.delegate = self;
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.mediaTypes = [kUTTypeMovie as String];
+            imagePicker.allowsEditing = false;
+            
+            present(imagePicker, animated: true, completion: nil)
+        }
+        else {
+            myAlert("Photo album inaccessable", message: "Application cannot access the photo album")
+        }
     }
     
     // 경고표시용 메서드
