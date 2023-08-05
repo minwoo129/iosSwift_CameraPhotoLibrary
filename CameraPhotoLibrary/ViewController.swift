@@ -40,7 +40,21 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         
     }
     
+    // "사진 불러오기" 코드 불러오기
     @IBAction func btnLoadImageFromLibrary(_ sender: UIButton) {
+        if(UIImagePickerController.isSourceTypeAvailable(.photoLibrary)) {
+            flagImageSave = false;
+            
+            imagePicker.delegate = self;
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.mediaTypes = [kUTTypeImage as String];
+            imagePicker.allowsEditing = true;
+            
+            present(imagePicker, animated: true, completion: nil)
+        }
+        else {
+            myAlert("Photo album inaccessable", message: "Application cannot access the photo album")
+        }
     }
     
     @IBAction func btnRecordVideoFromCamera(_ sender: UIButton) {
